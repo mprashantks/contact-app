@@ -7,6 +7,7 @@ module.exports = {
       let field = '';
       switch (requestType) {
         case 'GET':
+        case 'DELETE':
           field = 'query';
           break;
         default:
@@ -16,8 +17,8 @@ module.exports = {
       if (result.error) {
         return res.status(400).json(result.error);
       }
-
-      req.value = result.value;
+      if (!req.value) req.value = {};
+      req.value[field] = result.value;
       next();
     }
   },
@@ -34,6 +35,9 @@ module.exports = {
     }),
     signInOauth2Schema: Joi.object().keys({
       code: Joi.string().required()
+    }),
+    deleteContactSchema: Joi.object().keys({
+      resourceName: Joi.string().required()
     }),
   }
 };

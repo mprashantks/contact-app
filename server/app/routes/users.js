@@ -41,5 +41,13 @@ users.get('/contacts', validateToken, (req, res) => {
   });
 });
 
+users.delete('/deleteContact', validateToken, validateRequest('DELETE', schemas.deleteContactSchema), (req, res) => {
+  UserController.deleteContact(req).then(() => {
+    res.status(200).json({message: 'Deleted'});
+  }).catch(error => {
+    res.status(400).send(error);
+  });
+});
+
 
 module.exports = users;

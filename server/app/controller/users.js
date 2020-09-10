@@ -54,7 +54,7 @@ const signIn = (req) => {
       req.app.get('GOOGLE_OAUTH2_REDIRECT_URL')
     );
     try {
-      const {tokens} = await oauth2Client.getToken(req.value.code);
+      const {tokens} = await oauth2Client.getToken(req.value.query.code);
       oauth2Client.setCredentials(tokens);
       const response = await google.people('v1').people.get({
         resourceName: 'people/me',
@@ -126,6 +126,8 @@ const contacts = (req) => {
       });
 
       let userContacts = [];
+      if (!response.data.connections)
+        resolve({totalContacts: 0, contacts: userContacts});
       for (const user_contact of response.data.connections) {
         userContacts.push({
           key: user_contact.resourceName,
@@ -135,7 +137,7 @@ const contacts = (req) => {
           contactPhone: user_contact.phoneNumbers && user_contact.phoneNumbers[0].value,
         });
       }
-      resolve({totalContacts: response.data.totalPeople, contacts: userContacts})
+      resolve({totalContacts: response.data.totalPeople, contacts: userContacts});
     } catch (e) {
       reject(e);
     }
@@ -143,4 +145,26 @@ const contacts = (req) => {
 };
 
 
-module.exports = {signInOath2Url, signIn, userInfo, contacts};
+const deleteContact = (req) => {
+  return new Promise( async (resolve, reject) => {
+    const oauth2Client = new google.auth.OAuth2(
+      req.app.get('GOOGLE_OAUTH2_CLIENT_ID'),
+      req.app.get('GOOGLE_OAUTH2_CLIENT_SECRET'),
+      req.app.get('GOOGLE_OAUTH2_REDIRECT_URL')
+    );
+    try {
+      const tokens = JSON.parse(req.value.user.google_token);
+      oauth2Client.setCredentials(tokens);
+      const response = await google.people('v1').people.deleteContact({
+        resourceName: req.value.query.resourceName,
+        auth: oauth2Client
+      });
+      resolve();
+    } catch (e) {
+      reject(e);
+    }
+  });
+};
+
+
+module.exports = {signInOath2Url, signIn, userInfo, contacts, deleteContact};
