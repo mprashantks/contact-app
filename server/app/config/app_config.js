@@ -25,12 +25,13 @@ class Config {
   constructor() {
     this.SECRET_KEY = process.env.SECRET_KEY || 'contacts-app';
     this.APP_PORT = process.env.NODE_APP_PORT || 4000;
-    this.APP_URL = 'http://127.0.0.1:4000';
     this.GOOGLE_OAUTH2_SCOPE = [
       'https://www.googleapis.com/auth/userinfo.profile',
       'https://www.googleapis.com/auth/userinfo.email',
       'https://www.googleapis.com/auth/contacts'
     ];
+    this.GOOGLE_OAUTH2_CLIENT_ID = process.env.GOOGLE_OAUTH2_CLIENT_ID;
+    this.GOOGLE_OAUTH2_CLIENT_SECRET = process.env.GOOGLE_OAUTH2_CLIENT_SECRET;
   }
 }
 
@@ -58,8 +59,7 @@ class ProductionConfig extends Config {
       }
     };
 
-    this.GOOGLE_OAUTH2_CLIENT_ID = process.env.GOOGLE_OAUTH2_CLIENT_ID;
-    this.GOOGLE_OAUTH2_CLIENT_SECRET = process.env.GOOGLE_OAUTH2_CLIENT_SECRET;
+    this.GOOGLE_OAUTH2_REDIRECT_URL = process.env.GOOGLE_OAUTH2_REDIRECT_URL;
   }
 }
 
@@ -86,8 +86,6 @@ class DevelopmentConfig extends Config {
       }
     };
 
-    this.GOOGLE_OAUTH2_CLIENT_ID = '94619940837-4lp8j09rduc1m2e4t15qhq65hpivgubu.apps.googleusercontent.com';
-    this.GOOGLE_OAUTH2_CLIENT_SECRET = 'wZYtceqlG-0cDc1-YAJqjCCi';
     this.GOOGLE_OAUTH2_REDIRECT_URL = 'http://localhost:3000'
   }
 }

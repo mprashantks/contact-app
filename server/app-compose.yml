@@ -1,0 +1,18 @@
+version: '3'
+services:
+    # IMPORTANT: Port must be correctly configured
+    contact_api:
+        image: contact_api_image
+        container_name: contact_api
+        env_file:
+            - production-config.env
+        volumes:
+            - ./contact_data/log/node-app/:/data/Contact/log/app
+        ports:
+            - "4000:4000"
+        networks:
+            - contact
+
+networks:
+    contact:
+        driver: bridge

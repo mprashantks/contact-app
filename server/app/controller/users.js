@@ -142,5 +142,5 @@ const contacts = (req) => {
   });
 };
 
-// npx sequelize-cli db:migrate --env app_db --config config/migration-dev-config.json
+
 module.exports = {signInOath2Url, signIn, userInfo, contacts};

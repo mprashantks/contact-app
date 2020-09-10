@@ -1,0 +1,37 @@
+# Getting passed arguments
+# Passed arguments must be defined after FROM
+# Here only the first ARG will be considered, hence define remaining arguments after FROM
+ARG IMAGE_URI
+
+# API Image from premises docker repository
+FROM ${IMAGE_URI}
+
+ARG CODE_DIR
+ARG NODE_APP_SRC
+ARG CONTAINER_FILES
+ARG USER
+ARG PASSWORD
+
+LABEL version="1.0"
+LABEL description="API Image"
+LABEL maintainer="mprashantks@gmail.com"
+
+# Copy code
+COPY ${NODE_APP_SRC} ${CODE_DIR}/${NODE_APP_SRC}
+
+# Install required node packages
+WORKDIR ${CODE_DIR}/${NODE_APP_SRC}
+RUN \
+    npm install && \
+    npx sequelize-cli db:migrate --env app_db --config config/migration-production-config.json
+
+WORKDIR ${CODE_DIR}
+
+# Add supervisor configuration files
+ADD ${CONTAINER_FILES} /
+
+# Give write permission to filebeat config, executable permission to bootstrap.sh and create ssl directory
+RUN chmod 755 /config/bootstrap.sh
+
+# Execute bootstrap.sh
+ENTRYPOINT ["/config/bootstrap.sh"]
