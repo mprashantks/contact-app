@@ -105,7 +105,6 @@ h3 {
 }
 .column {
     float: left;
-    width: 33.33%;
 }
 
 #contacts-container {
@@ -125,6 +124,15 @@ h3 {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+}
+.contact:hover {
+    border: 2px solid #0a45c2;
+}
+.contact:hover .trash {
+    display: block;
+    cursor: pointer;
+    max-width: 20px;
+    max-height: 20px;
 }
 
 .contact_info {
@@ -154,4 +162,7 @@ h3 {
     font-weight: 500;
     font-size: 14px;
     line-height: 21px;
+}
+.row .trash {
+    display: none;
 }

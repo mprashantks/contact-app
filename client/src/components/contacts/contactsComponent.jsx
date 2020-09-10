@@ -37,10 +37,32 @@ class ContactsComponent extends Component {
       },
       (error) => {
         console.log(error);
-        this.props.history.push('/')
+        this.props.history.push('/');
       }
     );
   }
+
+  handleDelete = (key) => {
+    const bearer = localStorage.getItem('auth');
+    fetch(`api/users/deleteContact?resourceName=${encodeURIComponent(key)}`, {
+      method: 'DELETE',
+      headers: {'Authorization': bearer}
+    }).then((res) => {
+      if(!res.ok) throw new Error(res.status.toString());
+      else return res;
+    }).then(
+      () => {
+        const contacts = this.state.contacts.filter(c => c.key !== key);
+        this.setState({
+          contacts: contacts,
+          totalContacts: contacts.length
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  };
 
   render() {
     return (
@@ -59,19 +81,21 @@ class ContactsComponent extends Component {
                 <h2 className={"font"}>{"(" + this.state.totalContacts + ")"}</h2>
               </div>
               <div className={"row"}>
-                <h3 className="font column">NAME</h3>
-                <h3 className="font column">EMAIL</h3>
-                <h3 className="font column">PHONE NUMBER</h3>
+                <h3 className="font column" style={{width:'33.33%'}}>NAME</h3>
+                <h3 className="font column" style={{width:'33.33%'}}>EMAIL</h3>
+                <h3 className="font column" style={{width:'25.33%'}}>PHONE NUMBER</h3>
               </div>
 
               <div className={"contacts"}>
                 {this.state.contacts.map(contact => (
                   <ContactComponent
                     key={contact.key}
+                    id={contact.key}
                     contactDp={contact.contactDp}
                     contactDisplayName={contact.contactDisplayName}
                     contactEmail={contact.contactEmail}
                     contactPhone={contact.contactPhone}
+                    onDelete={this.handleDelete}
                   />
                 ))}
               </div>

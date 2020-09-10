@@ -30,7 +30,7 @@ class LoginComponent extends Component {
     )
   }
 
-  responseGoogle = (response) => {
+  responseGoogleSuccess = (response) => {
     fetch(`api/users/signin/oauth2?code=${encodeURIComponent(response.code)}`, {
       method: 'GET'
     }).then((res) => {
@@ -45,6 +45,10 @@ class LoginComponent extends Component {
         console.log(error);
       }
     )
+  };
+
+  responseGoogleError = (response) => {
+    console.log(response);
   };
 
   render() {
@@ -63,8 +67,8 @@ class LoginComponent extends Component {
               scope={this.state.scope}
               approvalPrompt="force"
               prompt='consent'
-              onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle}
+              onSuccess={this.responseGoogleSuccess}
+              onFailure={this.responseGoogleError}
             /> : <span className="google_login">
               Loading...
             </span>

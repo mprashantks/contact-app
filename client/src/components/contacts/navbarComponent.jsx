@@ -11,7 +11,6 @@ class NavbarComponent extends Component {
       userDisplayName: this.props.userDisplayName,
       userEmail: this.props.userEmail
     };
-    console.log(this.state);
   };
 
   signOut = () => {
