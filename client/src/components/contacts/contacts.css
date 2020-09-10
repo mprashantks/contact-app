@@ -1,0 +1,157 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #E5E5E5;
+}
+
+.font {
+    font-family: Poppins, sans-serif;
+    font-style: normal;
+    letter-spacing: 0.08em;
+}
+.circle {
+    border-radius: 50%;
+}
+
+h1 {
+    display: inline;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+    letter-spacing: 0.06em;
+    color: #053ED1;
+}
+h2 {
+    display: inline;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 39px;
+    color: #053ED1;
+}
+h3 {
+    display: inline;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+    color: #B0C6FF;
+}
+
+.inline {
+    display: inline;
+}
+
+#navbar {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 10%;
+    min-height: 70px;
+    padding-left: 10%;
+    padding-right: 10%;
+    background: linear-gradient(90.21deg, #053ED1 0%, #0F4EAC 100%);
+}
+#navbar .navbar_container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    color: #FFFFFF;
+}
+
+.user_info {
+    float: left;
+    display: flex;
+    align-items: center;
+}
+.user_info .profile_picture {
+    float: left;
+    border: 2px solid #FFFFFF;
+    box-sizing: border-box;
+    max-height: 54px;
+    max-width: 54px;
+}
+.user_info .mar {
+    margin-left: 20px;
+}
+.user_info .name {
+    font-size: 18px;
+    line-height: 27px;
+}
+.user_info .email {
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.logout_logo {
+    float: right;
+    margin-left: auto;
+    font-size: 30px;
+}
+
+.row {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.column {
+    float: left;
+    width: 33.33%;
+}
+
+#contacts-container {
+    width: 910px;
+    margin: 1% auto 0 auto;
+    padding: 1%;
+}
+.contacts {
+    max-height: 500px;
+    overflow-y: auto;
+}
+.contact {
+    height: 50px;
+    background: #FFFFFF;
+    box-shadow: 0 2px 6px rgba(5, 62, 209, 0.14);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.contact_info {
+    float: left;
+    display: flex;
+    align-items: center;
+}
+.contact_info .profile_picture {
+    float: left;
+    border: 1px solid #FF0000;
+    box-sizing: border-box;
+    max-height: 40px;
+    max-width: 40px;
+}
+.contact_info .name {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    margin-left: 10px;
+}
+.row .email {
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 18px;
+}
+.row .phone {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+}
