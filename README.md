@@ -1,8 +1,5 @@
 <h1> Contacts App </h1>
 
-<h5>App URL</h5>
-http://ec2-15-206-174-195.ap-south-1.compute.amazonaws.com/
-
 <h2> Technologies </h2>
 
 `Backend Framework - NodeJS`<br />
